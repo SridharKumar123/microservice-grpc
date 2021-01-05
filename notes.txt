@@ -1,0 +1,28 @@
+why grpc ?
+
+REST
+ - requires us to write client libraries for non-web modules.  
+ - is HTTP + JSON. 
+ - streaming is difficult and rare
+ - bi-directional streaming is impossible
+ 
+for any HTTP communication we need a client library. 
+In web applications the browser acts as the client library. But if it is not a web app, like - a python, java seperate applicaton, we need to use a seperate client library.
+when we have a browser which starts the communication, it the responsibility of the browser to maintain the client library. Chrome or firefox does maintain its client library. But when it comes to internal apps, we need to maintain our own clinet libraries.
+
+grpc
+Client libraries: One library for popular languages(google has built it)
+Protocol: HTTP/2
+Message format: Protocol buffer ( language agnostic)
+
+HTTP/2 takes a single physical stream and multiplexes multiple logical streams. every re/resp is a logical stream. 
+clients open a long lived connection to grpc server
+ - a new http/2 stream for each rpc call
+interceptors
+ - can be used for logging req/response and monitoring
+ 
+communication models:
+unary - client sends req and server responds
+server streaming - client sends req and server streams response in parts.
+client streaming - client sends req in streams and server responds
+bi-directional streaming - client and server both sends streams
